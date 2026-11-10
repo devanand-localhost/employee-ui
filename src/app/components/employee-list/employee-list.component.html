@@ -1,0 +1,50 @@
+<!-- This template turns EmployeeListComponent state into the employee list screen. -->
+<h2>Employees</h2> <!-- Labels the current screen. -->
+
+<div class="toolbar">
+  <!-- ngModel keeps the input and department property in sync; Enter runs the same search as the button. -->
+  <input type="text" placeholder="Filter by department" [(ngModel)]="department" (keyup.enter)="load()" />
+  <button type="button" (click)="load()">Search</button> <!-- Requests the list using the current filter. -->
+  <button type="button" (click)="clearFilter()">Clear</button> <!-- Resets the filter and reloads all employees. -->
+  <a routerLink="/employees/new" class="btn">+ Add Employee</a> <!-- Opens the create form. -->
+</div>
+
+<!-- Show request errors independently from loading and result states. -->
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+<!-- Choose one list state: loading, empty results, or the employee table. -->
+@if (loading) {
+  <p>Loading...</p>
+} @else if (employees.length === 0) {
+  <p>No employees found.</p>
+} @else {
+  <table> <!-- Display the employee records returned by EmployeeService. -->
+    <thead>
+      <tr>
+        <th>ID</th> <!-- Server-assigned employee identifier. -->
+        <th>Name</th> <!-- Employee's display name. -->
+        <th>Email</th> <!-- Employee's contact address. -->
+        <th>Department</th> <!-- Department value used by the filter. -->
+        <th>Salary</th> <!-- Salary is formatted below as INR. -->
+        <th>Actions</th> <!-- Row-specific edit and delete controls. -->
+      </tr>
+    </thead>
+    <tbody>
+      @for (emp of employees; track emp.id) { <!-- Render one row per employee and track it by its stable ID. -->
+        <tr>
+          <td>{{ emp.id }}</td> <!-- Insert the employee ID from the response object. -->
+          <td>{{ emp.name }}</td> <!-- Insert the employee name from the response object. -->
+          <td>{{ emp.email }}</td> <!-- Insert the employee email from the response object. -->
+          <td>{{ emp.department }}</td> <!-- Insert the employee department from the response object. -->
+          <td>{{ emp.salary | currency: 'INR' }}</td> <!-- Format the numeric salary as Indian rupees. -->
+          <td>
+            <a [routerLink]="['/employees', emp.id, 'edit']">Edit</a> <!-- Pass this row's ID to the edit route. -->
+            <button type="button" class="danger" (click)="onDelete(emp)">Delete</button> <!-- Ask the component to delete this row. -->
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

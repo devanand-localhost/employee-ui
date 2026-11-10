@@ -1,0 +1,61 @@
+<!-- This template connects the reactive form controls to the form component's data and actions. -->
+<h2>{{ isEdit ? 'Edit Employee' : 'Add Employee' }}</h2> <!-- Change the heading based on whether the route has an ID. -->
+
+<!-- Display API-level errors, such as a missing employee or failed save. -->
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+<!-- formGroup links this HTML form to the FormGroup; submit calls the component handler. -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>
+    Name <!-- Human-readable label for the name control. -->
+    <input type="text" formControlName="name" /> <!-- Connect the input to form.controls.name. -->
+    <!-- Show client-side validation only after the user has interacted with an invalid control. -->
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <small class="error">Name is required (max 100 characters).</small>
+    }
+    <!-- Show field-specific validation text returned by the backend, if present. -->
+    @if (fieldErrors['name']) {
+      <small class="error">{{ fieldErrors['name'] }}</small>
+    }
+  </label>
+
+  <label>
+    Email <!-- Human-readable label for the email control. -->
+    <input type="email" formControlName="email" /> <!-- Connect the input to form.controls.email. -->
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="error">A valid email is required.</small>
+    }
+    @if (fieldErrors['email']) {
+      <small class="error">{{ fieldErrors['email'] }}</small>
+    }
+  </label>
+
+  <label>
+    Department <!-- Human-readable label for the department control. -->
+    <input type="text" formControlName="department" /> <!-- Connect the input to form.controls.department. -->
+    @if (form.controls.department.touched && form.controls.department.invalid) {
+      <small class="error">Department is required (max 50 characters).</small>
+    }
+    @if (fieldErrors['department']) {
+      <small class="error">{{ fieldErrors['department'] }}</small>
+    }
+  </label>
+
+  <label>
+    Salary <!-- Human-readable label for the salary control. -->
+    <input type="number" step="0.01" formControlName="salary" /> <!-- Accept a numeric value with cents and connect it to the form. -->
+    @if (form.controls.salary.touched && form.controls.salary.invalid) {
+      <small class="error">Salary must be greater than 0.</small>
+    }
+    @if (fieldErrors['salary']) {
+      <small class="error">{{ fieldErrors['salary'] }}</small>
+    }
+  </label>
+
+  <div class="toolbar">
+    <button type="submit" [disabled]="saving">{{ saving ? 'Saving...' : 'Save' }}</button> <!-- Submit and prevent duplicate saves while one is pending. -->
+    <a routerLink="/employees" class="btn">Cancel</a> <!-- Leave the form and return to the employee list. -->
+  </div>
+</form>

@@ -1,1 +1,77 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles shared by the employee list, form, and app shell. */
+body {
+  font-family: Arial, sans-serif; /* Use a readable system font throughout the app. */
+  margin: 0; /* Remove the browser's default outer page spacing. */
+  background: #f4f6f8; /* Give the page a light gray background. */
+  color: #222; /* Use dark text for contrast against light surfaces. */
+}
+.topbar {
+  background: #0b5ed7; /* Distinguish the app header with its blue background. */
+  color: #fff; /* Keep header text visible on blue. */
+  padding: 12px 24px; /* Add space around the title and navigation. */
+  display: flex; /* Place the title and navigation in one row. */
+  justify-content: space-between; /* Push the title and navigation to opposite ends. */
+  align-items: center; /* Vertically align header contents. */
+}
+.topbar h1 {
+  margin: 0; /* Remove default heading spacing inside the header. */
+  font-size: 20px; /* Keep the app title compact. */
+}
+.topbar a {
+  color: #fff; /* Match navigation links to the header text. */
+  margin-left: 16px; /* Separate adjacent navigation links. */
+  text-decoration: none; /* Remove the default link underline. */
+}
+.container {
+  max-width: 900px; /* Limit content width to keep tables and forms readable. */
+  margin: 24px auto; /* Add vertical spacing and center the content horizontally. */
+  background: #fff; /* Put app content on a white surface. */
+  padding: 24px; /* Separate content from the container edges. */
+  border-radius: 8px; /* Soften the container corners. */
+}
+.toolbar {
+  display: flex; /* Arrange filter and action controls in a row. */
+  gap: 8px; /* Keep neighboring controls separated. */
+  margin: 16px 0; /* Add space above and below the toolbar. */
+  align-items: center; /* Vertically align the controls. */
+}
+table {
+  width: 100%; /* Let the employee table use the available content width. */
+  border-collapse: collapse; /* Merge adjacent cell borders into single lines. */
+}
+th,
+td {
+  text-align: left; /* Align headings and employee values consistently. */
+  padding: 8px; /* Add space inside each table cell. */
+  border-bottom: 1px solid #ddd; /* Separate rows with a subtle rule. */
+}
+td a {
+  margin-right: 12px; /* Separate action links from following controls. */
+}
+label {
+  display: block; /* Place each form field label on its own row. */
+  margin-bottom: 12px; /* Separate one form field from the next. */
+}
+input {
+  display: block; /* Put the input below its label text. */
+  width: 100%; /* Let form fields fill their available label width. */
+  padding: 8px; /* Make inputs easier to read and interact with. */
+  box-sizing: border-box; /* Include padding within the declared width. */
+  margin-top: 4px; /* Add a small gap between label text and input. */
+}
+.toolbar input {
+  width: 220px; /* Keep the department filter narrower than form fields. */
+  margin-top: 0; /* Align the filter input with the other toolbar controls. */
+}
+button,
+.btn {
+  padding: 8px 12px; /* Give buttons and button-like links a larger hit area. */
+  cursor: pointer; /* Show that the control can be activated. */
+}
+.danger,
+.error {
+  color: #b00020; /* Mark destructive actions and error messages in red. */
+}
+small.error {
+  display: block; /* Put field validation feedback on its own line. */
+}
